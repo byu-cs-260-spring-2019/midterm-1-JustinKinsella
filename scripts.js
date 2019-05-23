@@ -3,8 +3,11 @@ var app = new Vue({
     data:{
         search: '',
         searchValue: '',
-        loading: true,
+        loading: false,
         current: {},
+        formattedResponse: '',
+        
+
 
     },
 
@@ -21,20 +24,32 @@ var app = new Vue({
                 searchVal = searchVal.replace(' ', "+");
                 this.searchValue = searchVal;
             }
+            formattedResponse = '';
 
             try {
                 this.loading = true;
                 const response = await axios.get( 'http://openlibrary.org/search.json?q=' + this.search);
-                this.current = response.data;
+                this.current = response.data.docs;
                 this.loading = false;
-                console.log("response:  ", response.data);
-                return true;
-
+                console.log("response:  ", response);
             }
             catch(error) {
                 console.log(error);
             }
-        },           
+
+            for(i = 0; i < 100; i++){
+                let resposne = '';
+                response += "<div>";
+                response += "<h3> " + current[i].author_key[0] + "</h3>";
+                //response += "<p> " +
+                response += "</div>";
+
+                formattedResponse += response;
+            }
+
+        },    
+        
+        
     
     }
 
