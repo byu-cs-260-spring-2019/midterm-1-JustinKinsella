@@ -23,6 +23,7 @@
                     <div class="header">
                         <p class="item">Title: {{book.title_suggest}}</p>
                         <sup class="item" v-if="book.author_name != ''">Author: {{book.author_name}}</sup>
+                        <button v-on:click="favorite">Add as favorite</button>
                     </div>
                 </div>
                 
