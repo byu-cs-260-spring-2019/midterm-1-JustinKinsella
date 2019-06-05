@@ -11,17 +11,18 @@
     <div id="app">
         <input type="text" v-model="search">
         <button @click="submit">Search</button>
-
-        <div v-if="loading"> Loading...</div>
-        <br>
-        <div v-else>
         
-            <div>
-                <h3> {{current.author_name}}</h3>
-                <p> Date published: {{current[0].first_publish_year}}
-                    <br>
+        <div v-if="loading"> Loading...</div>
 
-                </p>
+        <div class="container">
+            <br>
+            <div v-for="book in books">
+                <div class="item">
+                    <p>Title: {{book.title_suggest}}</p>
+                    <p>Author: {{book.author_name}}</p>
+                </div>
+                
+                
             </div>
 
 
@@ -29,6 +30,7 @@
 
         </div>
     </div>
+
   
     
     <br>
@@ -40,6 +42,8 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="scripts.js"></script>
+
+    
 </body>
 
 </html>

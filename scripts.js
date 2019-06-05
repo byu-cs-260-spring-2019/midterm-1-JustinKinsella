@@ -4,15 +4,14 @@ var app = new Vue({
         search: '',
         searchValue: '',
         loading: false,
-        current: {},
-        formattedResponse: '',
-        
+        books: {},
+        author: [],
 
 
     },
 
 
-    mounted() {
+    created() {
         this.submit();
     },
 
@@ -24,27 +23,23 @@ var app = new Vue({
                 searchVal = searchVal.replace(' ', "+");
                 this.searchValue = searchVal;
             }
-            formattedResponse = '';
 
             try {
                 this.loading = true;
-                const response = await axios.get( 'http://openlibrary.org/search.json?q=' + this.search);
-                this.current = response.data.docs;
+                const url = 'http://openlibrary.org/search.json?q=' + this.search;
+                const response = await fetch(url);
+                const json = await response.json();
+                
+                this.books = json.docs;
                 this.loading = false;
-                console.log("response:  ", response);
+                console.log("response:  ", json);
+                for(var i = 0 ; i < 100; i++)
+                {
+                    this.author[i] = json.docs.author_name[0];
+                }
             }
             catch(error) {
                 console.log(error);
-            }
-
-            for(i = 0; i < 100; i++){
-                let resposne = '';
-                response += "<div>";
-                response += "<h3> " + current[i].author_key[0] + "</h3>";
-                //response += "<p> " +
-                response += "</div>";
-
-                formattedResponse += response;
             }
 
         },    
