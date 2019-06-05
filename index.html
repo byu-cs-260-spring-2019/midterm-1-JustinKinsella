@@ -7,10 +7,12 @@
 </head>
 
 <body>
-    <h1>Online Book Lookup</h1>   
+    <div class="header">
+    <h1 id="title">Online Book Lookup</h1>   
+    </div>
     <div id="app">
-        <input type="text" v-model="search">
-        <button @click="submit">Search</button>
+        <input type="text" v-model="search" placeholder="search any book or author" id="searchBar">
+        <button @click="submit" id="searchButton">Search</button>
         
         <div v-if="loading"> Loading...</div>
 
@@ -18,8 +20,10 @@
             <br>
             <div v-for="book in books">
                 <div class="item">
-                    <p>Title: {{book.title_suggest}}</p>
-                    <p>Author: {{book.author_name}}</p>
+                    <div class="header">
+                        <p class="item">Title: {{book.title_suggest}}</p>
+                        <sup class="item" v-if="book.author_name != ''">Author: {{book.author_name}}</sup>
+                    </div>
                 </div>
                 
                 
@@ -36,7 +40,7 @@
     <br>
     <br>
     <div id="footer">
-        source code by Justin Kinsella found at : <a href="https://github.com/byu-cs-260-spring-2019/lab-3-creating-a-vue-xkcd-browser-JustinKinsella">github</a> 
+        source code by Justin Kinsella found at : <a href="https://github.com/byu-cs-260-spring-2019/midterm-1-JustinKinsella">github</a> 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.2/dist/vue.js"></script>

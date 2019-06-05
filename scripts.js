@@ -5,8 +5,8 @@ var app = new Vue({
         searchValue: '',
         loading: false,
         books: {},
-        author: [],
-
+        thumbnail: [],
+        isbn: [],
 
     },
 
@@ -33,10 +33,20 @@ var app = new Vue({
                 this.books = json.docs;
                 this.loading = false;
                 console.log("response:  ", json);
-                for(var i = 0 ; i < 100; i++)
+                
+                
+                for(var i = 0; i < json.docs.length; i++)
                 {
-                    this.author[i] = json.docs.author_name[0];
+                    this.isbn.push({isbn: json.docs[i].isbn});
+                    const imageResponse = await fetch ('https://openlibrary.org/api/books?bibkeys=ISBN:' + this.isbn[i].isbn[0] + '&jscmd=details&format=json');
+                    const imageJson = await imageResponse.json();
+                    console.log("Thumbnail!: ", imageJson)
+                    this.thumbnail.push({image: imageJson.thumbnail_url});
+
                 }
+                console.log("Thumbnail: ", this.thumbnail);
+               
+                
             }
             catch(error) {
                 console.log(error);
